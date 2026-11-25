@@ -1,0 +1,17 @@
+﻿import { chromium } from 'playwright-core';
+const b = await chromium.launch({executablePath:'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',headless:true});
+const p = await b.newPage({viewport:{width:1200,height:900}});
+const errs=[]; p.on('pageerror',e=>errs.push(e.message)); p.on('console',m=>{if(m.type()==='error') errs.push(m.text())});
+await p.addInitScript(()=>localStorage.setItem('algatlas.accounts.v1', JSON.stringify({luogu:['lzn'],codeforces:['tourist'],atcoder:['chokudai']})));
+await p.goto('http://127.0.0.1:4318/',{waitUntil:'domcontentloaded'});
+await p.waitForSelector('.summary-card',{timeout:60000});
+await p.waitForTimeout(1500);
+console.log('summary text', (await p.locator('.summary-card--luogu').innerText()).slice(0,80));
+await p.locator('.main-nav button',{hasText:'题库'}).click();
+await p.waitForSelector('.contest-matrix tbody tr',{timeout:90000});
+console.log('cf rows', await p.locator('.contest-matrix tbody tr').count());
+await p.locator('.library-tabs button',{hasText:'洛谷'}).click();
+await p.waitForSelector('.luogu-topic-table tbody tr',{timeout:90000});
+console.log('luogu topics', await p.locator('.luogu-topic-table tbody tr').count());
+console.log('errors', errs.length?errs:'none');
+await b.close();

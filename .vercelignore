@@ -1,0 +1,7 @@
+artifacts
+scripts
+node_modules
+.git
+.gitignore
+*.log
+dist
