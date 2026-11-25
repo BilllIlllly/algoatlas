@@ -38,6 +38,20 @@
 - 响应式布局，支持手机浏览
 - 服务端内存缓存：用户数据 10 分钟，题库静态数据 6 小时；手动刷新可绕过用户缓存
 
+## 在线部署
+
+项目已经配置好 Vercel 全栈部署：
+
+- 前端构建：`dist/`
+- API：`api/proxy.js`（Express serverless 入口）
+- 配置：`vercel.json`
+
+一键导入：
+
+<https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FBilllIlllly%2Falgoatlas>
+
+在 Vercel 用 GitHub 登录并点击 Deploy 即可。部署后的前端和 API 同域，不需要额外配置环境变量。
+
 ## 本地运行
 
 ```bash
